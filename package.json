@@ -2,7 +2,7 @@
   "name": "react-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "jest",
     "build": "webpack --mode production",
@@ -18,6 +18,8 @@
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jsonwebtoken": "^8.5.8",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^1.0.1",
     "css-loader": "^3.4.0",
@@ -36,15 +38,21 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.14",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
     "core-js": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "typescript": "^4.5.5"
   },
   "babel": {
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-react"
+      "@babel/preset-react",
+      "@babel/preset-typescript"
     ]
   },
   "jest": {

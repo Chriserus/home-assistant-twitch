@@ -3,7 +3,6 @@
 - [Twitch Extension React Boilerplate](#twitch-extension-react-boilerplate)
     - [Requirements](#requirements)
     - [First time Usage](#first-time-usage)
-        - [Developer Rig Usage](#developer-rig-usage)
         - [Local Development](#local-development)
             - [Loading the Sample on Twitch](#loading-the-sample-on-twitch)
     - [Moving to Hosted Test (and beyond!)](#moving-to-hosted-test-and-beyond)
@@ -22,7 +21,7 @@ There is only one requirement to use this template.
 
 ## First time Usage
 
-There are two ways to develop extensions- the first is the [Developer Rig](#developer-rig-usage), which is the preferred
+There are two ways to develop extensions- the first is the , which is the preferred
 option. The second is to use [Local Test](#local-development) and test on Twitch on your channel page.
 
 ### [Developer Rig](https://dev.twitch.tv/docs/extensions/rig/) Usage
@@ -169,7 +168,7 @@ This would be:
 ```
 components\
 -\App\
---\App.jsx
+--\App.tsx
 --\App.test.js
 --\App.css
 ...

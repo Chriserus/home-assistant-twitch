@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import './LiveConfigPage.css'
 
 const LiveConfigPage = () => {
-    const [twitch] = useState(window.Twitch ? window.Twitch.ext : null);
+    const [twitch] = useState((window as any).Twitch ? (window as any).Twitch.ext : null);
     const [finishedLoading, setFinishedLoading] = useState(false);
     const [theme, setTheme] = useState('light');
 
@@ -19,13 +19,13 @@ const LiveConfigPage = () => {
                 }
             })
 
-            twitch.onContext((context, delta) => {
+            twitch.onContext((context: any, delta: any) => {
                 contextUpdate(context, delta)
             })
         }
     }, []);
 
-    const contextUpdate = (context, delta) => {
+    const contextUpdate = (context: { theme: React.SetStateAction<string>; }, delta: string | string[]) => {
         if (delta.includes('theme')) {
             setTheme(context.theme);
         }

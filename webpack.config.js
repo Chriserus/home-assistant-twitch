@@ -1,4 +1,3 @@
-const fs = require('fs')
 const path = require("path")
 const webpack = require("webpack")
 
@@ -11,32 +10,32 @@ const bundlePath = path.resolve(__dirname, "dist/")
 module.exports = (_env, argv) => {
     let entryPoints = {
         VideoComponent: {
-            path: "./src/VideoComponent.js",
+            path: "./src/VideoComponent.tsx",
             outputHtml: "video_component.html",
             build: true
         },
         VideoOverlay: {
-            path: "./src/VideoOverlay.js",
+            path: "./src/VideoOverlay.tsx",
             outputHtml: "video_overlay.html",
             build: true
         },
         Panel: {
-            path: "./src/Panel.js",
+            path: "./src/Panel.tsx",
             outputHtml: "panel.html",
             build: true
         },
         Config: {
-            path: "./src/Config.js",
+            path: "./src/Config.tsx",
             outputHtml: "config.html",
             build: true
         },
         LiveConfig: {
-            path: "./src/LiveConfig.js",
+            path: "./src/LiveConfig.tsx",
             outputHtml: "live_config.html",
             build: true
         },
         Mobile: {
-            path: "./src/Mobile.js",
+            path: "./src/Mobile.tsx",
             outputHtml: "mobile.html",
             build: true
         }
@@ -73,7 +72,7 @@ module.exports = (_env, argv) => {
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
+                    test: /\.(ts|tsx)$/,
                     exclude: /(node_modules|bower_components)/,
                     loader: 'babel-loader',
                 },
@@ -98,7 +97,7 @@ module.exports = (_env, argv) => {
                 }
             ]
         },
-        resolve: {extensions: ['*', '.js', '.jsx']},
+        resolve: {extensions: ['*', '.ts', '.tsx', '.js']},
         output: {
             filename: "[name].bundle.js",
             path: bundlePath

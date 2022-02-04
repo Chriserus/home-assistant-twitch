@@ -1,8 +1,10 @@
-import React from "react"
 import ReactDOM from "react-dom"
 import ConfigPage from "./components/ConfigPage/ConfigPage"
+import React from "react";
 
 ReactDOM.render(
-    <ConfigPage/>,
+    <React.StrictMode>
+        <ConfigPage/>
+    </React.StrictMode>,
     document.getElementById("root")
 )

@@ -4,7 +4,7 @@ import './App.css'
 import jwt from "jsonwebtoken";
 
 const App = () => {
-    const [twitch] = useState(window.Twitch ? window.Twitch.ext : null);
+    const [twitch] = useState((window as any).Twitch ? (window as any).Twitch.ext : null);
     const [finishedLoading, setFinishedLoading] = useState(false);
     const [theme, setTheme] = useState('light');
     const [isVisible, setIsVisible] = useState(true);
@@ -16,7 +16,7 @@ const App = () => {
 
     useEffect(() => {
         if (twitch) {
-            twitch.onAuthorized((auth) => {
+            twitch.onAuthorized((auth: { token: any; userId: any; }) => {
                 setAuthorization(auth.token, auth.userId);
                 if (!finishedLoading) {
                     // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
@@ -26,7 +26,7 @@ const App = () => {
                 }
             })
 
-            twitch.listen('broadcast', (target, contentType, body) => {
+            twitch.listen('broadcast', (target: any, contentType: any, body: any) => {
                 twitch.rig.log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
                 // now that you've got a listener, do something with the result...
 
@@ -34,11 +34,11 @@ const App = () => {
 
             })
 
-            twitch.onVisibilityChanged((isVisible, _c) => {
+            twitch.onVisibilityChanged((isVisible: any, _c: any) => {
                 visibilityChanged(isVisible)
             })
 
-            twitch.onContext((context, delta) => {
+            twitch.onContext((context: any, delta: any) => {
                 contextUpdate(context, delta)
             })
         }
@@ -53,12 +53,15 @@ const App = () => {
         }
     }, [])
 
-    const setAuthorization = (token, opaque_id) => {
+    const setAuthorization = (token: string, opaque_id: string) => {
         try {
             let decoded = jwt.decode(token)
+
+            // @ts-ignore
             if (decoded.role === 'broadcaster' || decoded.role === 'moderator') {
                 setIsMod(true);
             }
+            // @ts-ignore
             setUser_id(decoded.user_id);
         } catch (e) {
             setToken('');
@@ -68,13 +71,13 @@ const App = () => {
         setOpaque_id(opaque_id);
     }
 
-    const contextUpdate = (context, delta) => {
+    const contextUpdate = (context: { theme: React.SetStateAction<string>; }, delta: string | string[]) => {
         if (delta.includes('theme')) {
             setTheme(context.theme);
         }
     }
 
-    const visibilityChanged = (isVisible) => {
+    const visibilityChanged = (isVisible: boolean | ((prevState: boolean) => boolean)) => {
         setIsVisible(isVisible);
     }
 

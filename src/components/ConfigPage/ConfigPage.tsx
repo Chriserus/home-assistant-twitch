@@ -4,7 +4,7 @@ import './Config.css'
 import jwt from "jsonwebtoken";
 
 const ConfigPage = () => {
-    const [twitch] = useState(window.Twitch ? window.Twitch.ext : null);
+    const [twitch] = useState((window as any).Twitch ? (window as any).Twitch.ext : null);
     const [finishedLoading, setFinishedLoading] = useState(false);
     const [theme, setTheme] = useState('light');
     const [isMod, setIsMod] = useState(false);
@@ -12,7 +12,7 @@ const ConfigPage = () => {
     useEffect(() => {
         // do config page setup as needed here
         if (twitch) {
-            twitch.onAuthorized((auth) => {
+            twitch.onAuthorized((auth: { token: any; }) => {
                 setAuthorization(auth.token);
                 if (!finishedLoading) {
                     // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
@@ -22,21 +22,24 @@ const ConfigPage = () => {
                 }
             })
 
-            twitch.onContext((context, delta) => {
+            twitch.onContext((context: any, delta: any) => {
                 contextUpdate(context, delta)
             })
         }
     }, []);
 
-    const contextUpdate = (context, delta) => {
+    const contextUpdate = (context: { theme: React.SetStateAction<string>; }, delta: string | string[]) => {
         if (delta.includes('theme')) {
             setTheme(context.theme);
         }
     }
 
-    const setAuthorization = (token) => {
+    const setAuthorization = (token: any) => {
         try {
             let decoded = jwt.decode(token)
+            if(decoded === null || typeof decoded === 'string') {
+                return;
+            }
             if (decoded.role === 'broadcaster' || decoded.role === 'moderator') {
                 setIsMod(true);
             }
