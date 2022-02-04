@@ -4,7 +4,7 @@ import './App.css'
 import jwt from "jsonwebtoken";
 
 const App = () => {
-    const [twitch, setTwitch] = useState(window.Twitch ? window.Twitch.ext : null);
+    const [twitch] = useState(window.Twitch ? window.Twitch.ext : null);
     const [finishedLoading, setFinishedLoading] = useState(false);
     const [theme, setTheme] = useState('light');
     const [isVisible, setIsVisible] = useState(true);
@@ -12,7 +12,6 @@ const App = () => {
     const [opaque_id, setOpaque_id] = useState('');
     const [isMod, setIsMod] = useState(false);
     const [user_id, setUser_id] = useState("");
-    const [role, setRole] = useState("");
 
 
     useEffect(() => {
@@ -61,7 +60,6 @@ const App = () => {
                 setIsMod(true);
             }
             setUser_id(decoded.user_id);
-            setRole(decoded.role);
         } catch (e) {
             setToken('');
             setOpaque_id('');
