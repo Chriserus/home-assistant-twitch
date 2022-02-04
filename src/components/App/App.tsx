@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './App.css'
 import jwt from "jsonwebtoken";
+import axios from "axios";
 
 const App = () => {
     const [twitch] = useState((window as any).Twitch ? (window as any).Twitch.ext : null);
@@ -81,6 +82,17 @@ const App = () => {
         setIsVisible(isVisible);
     }
 
+    const requestFrom = () => {
+        axios.get('http://localhost:8081')
+            .then((response) => {
+                console.log(response.data);
+                (window as any).Twitch.ext.rig.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     if (finishedLoading && isVisible) {
         return (
             <div className="App">
@@ -89,7 +101,7 @@ const App = () => {
                     <p>My token is: {token}</p>
                     <p>My opaque ID is {opaque_id}.</p>
                     <div>{isMod ? <p>I am currently a mod, and here's a special mod button <input value='mod button'
-                                                                                                  type='button'/>
+                                                                                                  type='button' onClick={requestFrom}/>
                     </p> : 'I am currently not a mod.'}</div>
                     <p>I have {!!user_id ? `shared my ID, and my user_id is ${user_id}` : 'not shared my ID'}.</p>
                 </div>
